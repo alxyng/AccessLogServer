@@ -8,10 +8,10 @@ class Apache2AccessLog {
 	private String file = "access.log";
 
 	private int noLines = 25;
-	private String[] logContent;
+	private LogEntry[] logContent;
 
 	public Apache2AccessLog() {
-		logContent = new String[noLines];
+		logContent = new LogEntry[noLines];
 	}
 
 	public void setNoLines(int lines) {
@@ -31,9 +31,9 @@ class Apache2AccessLog {
 						for (int j = 0; j < noLines - 1; j++) {
 							logContent[j] = logContent[j + 1];
 						}
-						logContent[noLines - 1] = line;
+						logContent[noLines - 1] = new LogEntry(line);
 					} else {
-						logContent[i++] = line;
+						logContent[i++] = new LogEntry(line);
 					}
 				}
 			} catch (IOException e) {
@@ -46,7 +46,7 @@ class Apache2AccessLog {
 	}
 
 	public void print() {
-		for (String line : logContent) {
+		for (LogEntry line : logContent) {
 			System.out.println(line);
 		}
 	}

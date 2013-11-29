@@ -1,6 +1,8 @@
 import java.util.regex.*;
 
 class LogEntry {
+	private String raw;
+	
 	private String ip;
 	private String time;
 	private String request;
@@ -12,7 +14,8 @@ class LogEntry {
 	public static final int NUM_FIELDS = 9;
 	String logEntryPattern = "^([\\d.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(.+?)\" (\\d{3}) (\\d+) \"([^\"]+)\" \"([^\"]+)\"";
 
-	public LogEntry(String line) {
+	public LogEntry(String logEntryLine) {
+		raw = logEntryLine;
 		Pattern p = Pattern.compile(logEntryPattern);
 		Matcher matcher = p.matcher(logEntryLine);
 		if (!matcher.matches() || NUM_FIELDS != matcher.groupCount()) {
@@ -32,8 +35,12 @@ class LogEntry {
 		browser = matcher.group(9);
 	}
 	
+	public String getRaw() {
+		return raw;
+	}
+	
 	public String getIP() {
-		return ip
+		return ip;
 	}
 	
 	public String getTime() {
