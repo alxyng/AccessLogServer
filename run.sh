@@ -1,1 +1,1 @@
-sudo java -cp bin Main
+sudo java -cp bin -cp lib/java_websocket.jar Server
