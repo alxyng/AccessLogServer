@@ -22,7 +22,7 @@ class LogEntry {
 		//  System.err.println("Bad log entry (or problem with RE?):");
 		//  System.err.println(logEntryLine);
 		//  return;
-		/}
+		//}
 		
 		//ip = matcher.group(1);
 		//time = matcher.group(4);

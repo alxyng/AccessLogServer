@@ -1,1 +1,1 @@
-javac -d64 -d bin src/Main.java src/Apache2AccessLog.java src/LogEntry.java
+javac -d64 -cp lib/java_websocket.jar -d bin src/Server.java src/Apache2AccessLog.java src/LogEntry.java
