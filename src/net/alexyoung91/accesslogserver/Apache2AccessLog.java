@@ -49,7 +49,7 @@ class Apache2AccessLog {
 
 	public void print() {
 		for (LogEntry logEntry : logContent) {
-			System.out.println(logEntry.getTime());
+			System.out.println(logEntry.getIP());
 		}
 	}
 }

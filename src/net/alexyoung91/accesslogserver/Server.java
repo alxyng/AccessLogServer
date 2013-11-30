@@ -69,6 +69,11 @@ public class Server extends WebSocketServer {
 	}
 	
 	 public static void main(String[] args) throws InterruptedException, IOException {
+		 
+		 //Apache2AccessLog log = new Apache2AccessLog();
+		 //log.read();
+		 //log.print();
+		 
 		WebSocketImpl.DEBUG = true;
 		int port = 8887; // 843 flash policy port
 		try {
