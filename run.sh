@@ -1,1 +1,1 @@
-sudo java -cp bin -cp lib/java_websocket.jar Server
+sudo java -d64 -cp "lib/*;bin" net.alexyoung91.accesslogserver.Server

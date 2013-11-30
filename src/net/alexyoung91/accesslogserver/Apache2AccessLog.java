@@ -1,3 +1,5 @@
+package net.alexyoung91.accesslogserver;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
