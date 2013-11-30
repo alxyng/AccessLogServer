@@ -7,7 +7,7 @@ class Apache2AccessLog {
 	private String directory = "/var/log/apache2/";
 	private String file = "access.log";
 
-	private int noLines = 25;
+	private int noLines = 5;
 	private LogEntry[] logContent;
 
 	public Apache2AccessLog() {
@@ -46,8 +46,8 @@ class Apache2AccessLog {
 	}
 
 	public void print() {
-		for (LogEntry line : logContent) {
-			System.out.println(line);
+		for (LogEntry logEntry : logContent) {
+			System.out.println(logEntry.getTime());
 		}
 	}
 }
