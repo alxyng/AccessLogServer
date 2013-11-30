@@ -18,21 +18,21 @@ class LogEntry {
 		raw = logEntryLine;
 		Pattern p = Pattern.compile(logEntryPattern);
 		Matcher matcher = p.matcher(logEntryLine);
-		if (!matcher.matches() || NUM_FIELDS != matcher.groupCount()) {
-		  System.err.println("Bad log entry (or problem with RE?):");
-		  System.err.println(logEntryLine);
-		  return;
-		}
+		//if (!matcher.matches() || NUM_FIELDS != matcher.groupCount()) {
+		//  System.err.println("Bad log entry (or problem with RE?):");
+		//  System.err.println(logEntryLine);
+		//  return;
+		/}
 		
-		ip = matcher.group(1);
-		time = matcher.group(4);
-		request = matcher.group(5);
-		response = matcher.group(6);
-		bytesSent = matcher.group(7);
-		referer = matcher.group(8);
+		//ip = matcher.group(1);
+		//time = matcher.group(4);
+		//request = matcher.group(5);
+		//response = matcher.group(6);
+		//bytesSent = matcher.group(7);
+		//referer = matcher.group(8);
 		//if (!matcher.group(8).equals("-"))
 		//	System.out.println("Referer: " + matcher.group(8));
-		browser = matcher.group(9);
+		//browser = matcher.group(9);
 	}
 	
 	public String getRaw() {
