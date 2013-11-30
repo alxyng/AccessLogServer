@@ -2,9 +2,32 @@
 <html>
 	<head>
 		<title>Access Log Client</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<style>
 			/* */
 		</style>
+		<script>
+			var socket = new WebSocket("ws://localhost:8887");
+			
+			socket.onopen = function() {  
+				console.log("Socket Status: " + socket.readyState + " (open)");
+			}  
+
+			socket.onmessage = function(msg) {  
+				console.log("Received: " + msg.data);
+			}  
+
+			socket.onclose = function() {  
+				console.log("Socket Status: " + socket.readyState + " (closed)"); 
+			} 
+			
+			/*
+			setInterval(function() {
+				//socket.send("hiya!!!");
+			}, 1000);
+			*/
+			
+		</script>
 	</head>
 	<body>
 		<!-- -->

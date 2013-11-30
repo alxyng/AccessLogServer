@@ -46,10 +46,16 @@ class Apache2AccessLog {
 			System.out.println("File not found");
 		}
 	}
+	
+	public LogEntry getLogEntry(int n) {
+		if (n < noLines)
+			return logContent[n];
+		return logContent[noLines];
+	}
 
 	public void print() {
 		for (LogEntry logEntry : logContent) {
-			System.out.println(logEntry.getIP());
+			System.out.println(logEntry.getRequest());
 		}
 	}
 }

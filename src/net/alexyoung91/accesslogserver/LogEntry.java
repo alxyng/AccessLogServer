@@ -14,9 +14,9 @@ class LogEntry {
 		
 		ip = raw.split("\\s+")[0];
 		//time = raw.split("[")[1].split("]")[0];
-		//request = raw.split("\"")[1];
+		request = raw.split("\"")[1];
 		//response = raw.split("\\s+")[8];
-		//bytesSent = raw.split("\\s+")[9];
+		bytesSent = raw.split("\\s+")[9];
 	}
 	
 	public String getRaw() {

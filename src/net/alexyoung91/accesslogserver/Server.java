@@ -11,7 +11,12 @@ import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
-public class Server extends WebSocketServer {
+class Server extends WebSocketServer {
+	
+	private static Apache2AccessLog log;
+	private static LogWatcher watcher;
+	private static Sender sender;
+	
 	public Server(int port) throws UnknownHostException {
 		super(new InetSocketAddress(port));
 	}
@@ -22,31 +27,28 @@ public class Server extends WebSocketServer {
 	
 	@Override
 	public void onOpen(WebSocket conn, ClientHandshake handshake) {
-		this.sendToAll( "new connection: " + handshake.getResourceDescriptor() );
-		System.out.println( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!" );
+		Server.log( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " connected." );
 	}
 
 	@Override
 	public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-		this.sendToAll( conn + " has left the room!" );
-		System.out.println( conn + " has left the room!" );
+		System.out.println(conn + " disconnected");
 	}
 
 	@Override
 	public void onMessage(WebSocket conn, String message) {
-		this.sendToAll( message );
-		System.out.println( conn + ": " + message );
+		System.out.println(conn + ": " + message);
 	}
 
 	@Override
 	public void onFragment(WebSocket conn, Framedata fragment) {
-		System.out.println( "received fragment: " + fragment );
+		System.out.println("received fragment: " + fragment);
 	}
 	
 	@Override
 	public void onError( WebSocket conn, Exception ex ) {
 		ex.printStackTrace();
-		if( conn != null ) {
+		if(conn != null) {
 			// some errors like port binding failed may not be assignable to a specific websocket
 		}
 	}
@@ -68,22 +70,31 @@ public class Server extends WebSocketServer {
 		}
 	}
 	
-	 public static void main(String[] args) throws InterruptedException, IOException {
-		 
-		 //Apache2AccessLog log = new Apache2AccessLog();
-		 //log.read();
-		 //log.print();
-		 
-		WebSocketImpl.DEBUG = true;
+	public static void log(String msg) {
+		System.out.println("SERVER: " + msg);
+	}
+	
+	public static void main(String[] args) throws InterruptedException, IOException {		 
+		WebSocketImpl.DEBUG = false;
 		int port = 8887; // 843 flash policy port
 		try {
 				port = Integer.parseInt(args[0]);
 		} catch ( Exception ex ) {
 			//
 		}
+		
+		log = new Apache2AccessLog();
+		log.read();
+		
+		watcher = new LogWatcher(log);
+		watcher.start();
+		
 		Server s = new Server(port);
 		s.start();
-		System.out.println("Server started on port: " + s.getPort());
+		Server.log("Started on port: " + s.getPort());
+		
+		sender = new Sender(s, log);
+		sender.start();
 
 		BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
